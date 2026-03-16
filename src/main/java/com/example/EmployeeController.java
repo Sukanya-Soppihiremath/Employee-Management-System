@@ -1,0 +1,40 @@
+package com.example;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/api/employees")
+
+public class EmployeeController {
+
+	  @Autowired
+	    private EmployeeService service;
+
+	    @PostMapping
+	    public Employee create(@RequestBody Employee emp) {
+	        return service.register(emp);
+	    }
+
+	    @GetMapping("/employees")
+ public List<Employee> getAllEmployees() {
+	        return service.getAll();
+	    }
+
+	    @GetMapping("/{id}")
+	    public Employee getById(@PathVariable Long id) {
+	        return service.getById(id);
+	    }
+
+	    @PutMapping("/{id}")
+	    public Employee update(@PathVariable Long id, @RequestBody Employee emp) {
+	        return service.update(id, emp);
+	    }
+
+	    @DeleteMapping("/{id}")
+	    public void delete(@PathVariable Long id) {
+	        service.delete(id);
+	    }
+}
